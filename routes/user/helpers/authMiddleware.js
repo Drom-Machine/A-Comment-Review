@@ -1,51 +1,48 @@
+//----------------------------------------------- Brings in functions from authMethods
 const {
   checkIsEmail,
   checkIsAlpha,
   checkIsAlphanumeric,
-} = require("../../utils/authMethods"); //bring in our functions from authmethods
+} = require("../../utils/authMethods"); 
 
+//----------------------------------------------- Checks email function  
 function checkIsEmailFunc(req, res, next) {
-  //write check email function
   const { errorObj } = res.locals;
-  //establish errorObj obj and fill it with the res.local data
 
   if (!checkIsEmail(req.body.email)) {
-    //if it fails check then:
     errorObj.wrongEmailFormat = "Must be in email format!";
   } 
-  //else next function in the line
   next();
 }
 
+//----------------------------------------------- Checks Alpha String function
 function checkIsAlphaFunc(req, res, next) {
   const { errorObj } = res.locals;
-  //establish errorObj obj and fill it with the res.local data
   const inComingData = req.body;
   for (key in inComingData) {
     if (key === "firstName" || key === "lastName") {
-      //if it fails check then:
       if (!checkIsAlpha(inComingData[key])) {
         errorObj[`${key}`] = `${key} can only have characters`;
       }
     }
   }
-  //else next function in the line
+  //----------------------------------------------- Calls the next function
   next();
 }
 
+//----------------------------------------------- Checks if string is Alphanumeric (numbers and letters)
 function checkIsAlphanumericFunc(req, res, next) {
   const { errorObj } = res.locals;
-  //establish errorObj obj and fill it with the res.local data
   if (!checkIsAlphanumeric(req.body.username)) {
-    //if it fails check then:
     errorObj.usernameError = "username can only have characters and numbers";
   }
-  //else next function in the line
+  //------------------------------ Calls next function
   next();
 }
 
+//------------------------------ Exports the Functions to User Router
 module.exports = {
   checkIsEmailFunc,
   checkIsAlphaFunc,
   checkIsAlphanumericFunc,
-}; //export our functions for use in user router
+}; 

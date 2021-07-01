@@ -1,17 +1,20 @@
-const { checkIsStrongPassword } = require("../../utils/authMethods"); //bring in strong password check
+//------------------------------------------------- Brings in strong password check
+const { checkIsStrongPassword } = require("../../utils/authMethods"); 
 
 function checkIsStrongPasswordFunc(req, res, next) {
-  //let errorObj = {};
-
+  
+  //----------------------------------------------- Pulls errors from function
   const { errorObj } = res.locals;
-  //establish errorObj obj and fill it with the res.local data
+
+  //---------------------------------------------------------------- Checks password for strength
   if (!checkIsStrongPassword(req.body.password)) {
-    //if it doesn't meet standards then message
     errorObj.weakPassword =
       "Password must include 1 lowercase, 1 uppercase, 1 special character, 1 number, and a length of 8";
   }
-  // then next function in line
+  
+  //------------------------------ Calls next function
   next();
 }
 
-module.exports = checkIsStrongPasswordFunc; //export our function
+//----------------------------------------------- Exports the function
+module.exports = checkIsStrongPasswordFunc; 

@@ -1,21 +1,23 @@
-const express = require("express"); //bring in express
-const router = express.Router(); //call express router
+//-----------------------------------------------Brings in express and expressRouter
+const express = require("express"); 
+const router = express.Router(); 
 
-const { signup, login } = require("./controller/userController"); //bring in signup and login
+//----------------------------------------------- Brings in signup and login
+const { signup, login } = require("./controller/userController"); 
 
-//bring in other functions
+
 const checkIsUndefined = require("./helpers/checkIsUndefined");
 const checkIsEmptyFunc = require("./helpers/checkIsEmptyFunc");
 const checkIsStrongPasswordFunc = require("./helpers/checkIsStrongPasswordFunc");
 
-//bring in some more functions
+
 const {
   checkIsEmailFunc,
   checkIsAlphaFunc,
   checkIsAlphanumericFunc,
 } = require("./helpers/authMiddleware");
 
-//call these functions when this req is made
+//----------------------------------------------- Calls functions in order for sign up
 router.post(
   "/sign-up",
   checkIsUndefined,
@@ -27,7 +29,7 @@ router.post(
   signup
 );
 
-//call these functions when this req is made
+//--------------------------------------------- Calls functions in order for login
 router.post(
   "/login",
   checkIsUndefined,
@@ -36,4 +38,5 @@ router.post(
   login
 );
 
-module.exports = router; //export router
+//--------------------------------------------- Exports router
+module.exports = router; 
